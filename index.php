@@ -39,38 +39,39 @@ $hotels=[
 ];
 
 /**
- * Filters the hotels array based on the provided filters.
+ * Filtra l'array degli hotel in base ai filtri forniti.
  *
- * @param array $hotels The array of hotels to filter.
- * @param array $filters The filters to apply to the hotels.
- * @return array The filtered array of hotels.
+ * @param array $hotels L'array degli hotel da filtrare.
+ * @param array $filters I filtri da applicare agli hotel.
+ * @return array L'array filtrato degli hotel.
  */
 function filter_hotels($hotels, $filters) {
-  // Filter the hotels array based on the provided filters.
+  // Filtra l'array degli hotel in base ai filtri forniti.
   return array_filter($hotels, function($hotel) use ($filters) {
-    // Check if the name filter is not empty and the hotel name does not contain the filter.
+    // Controlla se il filtro name non è vuoto e il nome dell'hotel non contiene il filtro.
     if (!empty($filters['name']) && stripos($hotel['name'], $filters['name']) === false) {
-      return false; // If the filter does not match, exclude the hotel from the result.
+      return false; // Se il filtro non corrisponde, esclude l'hotel dal risultato.
     }
 
-    // Check if the city filter is not empty and the hotel city does not contain the filter.
+    // Controlla se il filtro city non è vuoto e la città dell'hotel non contiene il filtro.
     if (!empty($filters['city']) && stripos($hotel['city'], $filters['city']) === false) {
-      return false; // If the filter does not match, exclude the hotel from the result.
+      return false; // Se il filtro non corrisponde, esclude l'hotel dal risultato.
     }
 
-    // Check if the parking filter is set and the hotel does not have parking.
+    // Controlla se il filtro parking è impostato e l'hotel non ha parcheggio.
     if (isset($filters['parking']) && $filters['parking'] && !$hotel['parking']) {
-      return false; // If the filter does not match, exclude the hotel from the result.
+      return false; // Se il filtro non corrisponde, esclude l'hotel dal risultato.
     }
 
-    // Check if the distance filter is not empty and the hotel distance is greater than the filter.
+    // Controlla se il filtro distance_to_center non è vuoto e la distanza dell'hotel dal centro non corrisponde al filtro.
     if (!empty($filters['distance_to_center']) && $hotel['distance_to_center'] > $filters['distance_to_center']) {
-      return false; // If the filter does not match, exclude the hotel from the result.
+      return false; // Se il filtro non corrisponde, esclude l'hotel dal risultato.
     }
 
-    return true; // If all filters match, include the hotel in the result.
+    return true; // Includi l'hotel nel risultato se tutti i filtri corrispondono.
   });
 }
+
 
 // Gestione dei filtri
 $filters = [
